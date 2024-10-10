@@ -4,12 +4,12 @@ import sys
 def install(package):
     subprocess.check_call([sys.executable, "-m", "pip", "install", package])
 
-try:
+ try:
     from pynput.keyboard import Key, Listener
     from plyer import notification
     import os
     import win32com.client 
-except ImportError:
+ except ImportError:
     list1 = ['pynput', 'plyer', 'pywin32','win32com','os']
     for i in list1:
         install(i)
