@@ -4,18 +4,19 @@ import os
 import win32com.client
 from pynput.keyboard import Key, Listener
 from plyer import notification
-def install(package):
-    subprocess.check_call([sys.executable, "-m", "pip", "install", package])
 
-    # try:
-    #     from pynput.keyboard import Key, Listener
-    #     from plyer import notification
-    #     import os
-    #     import win32com.client
-    # except ImportError:
-    #     list1 = ['pynput', 'plyer', 'pywin32', 'os']
-    #     for i in list1:
-    #         install(i)
+
+def install_if_missing(package):
+    try:
+        __import__(package)
+    except ImportError:
+        subprocess.check_call([sys.executable, "-m", "pip", "install", package])
+        if not os.path.exists('requirements.txt') or package not in open('requirements.txt').read():
+            with open('requirements.txt', 'a') as f:
+                f.write(f"{package}\n")
+
+install_if_missing('requests')
+
 
 
 
