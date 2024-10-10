@@ -1,6 +1,6 @@
 
 
-Python Keylogger Documentation
+Python agentxlogger Documentation
 Overview
 This Python keylogger captures keystrokes and logs them into a file. It is designed to run in the background and can automatically start with the operating system. The captured keystrokes are saved in a file named key_log.log.
 
