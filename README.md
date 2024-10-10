@@ -1,5 +1,4 @@
 
-Here's a documentation for your Python keylogger code. It includes an overview, installation instructions, usage guidelines, and explanations of the code components.
 
 Python Keylogger Documentation
 Overview
